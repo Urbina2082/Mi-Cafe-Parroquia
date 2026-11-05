@@ -1,0 +1,261 @@
+
+---
+const {
+  etiqueta = "PAGOS",
+  titulo = "Transferencias y pagos",
+  descripcion = "Datos para transferencia bancaria. Esta página no procesa pagos.",
+  mensaje = "Datos bancarios próximamente",
+  indicacion = "Pregunta en el restaurante por las opciones de pago disponibles.",
+  aviso = "Nunca te pediremos NIP, CVV ni contraseñas.",
+} = Astro.props;
+---
+
+<section class="pagos">
+  <div class="pagos-container">
+    <header class="pagos-header">
+      <span class="pagos-etiqueta">{etiqueta}</span>
+      <h2>{titulo}</h2>
+      <p>{descripcion}</p>
+    </header>
+
+    <div class="pagos-card">
+      <div class="pagos-icon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="46"
+          height="46"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M3 10h18" />
+          <path d="M5 10V20" />
+          <path d="M9 10V20" />
+          <path d="M15 10V20" />
+          <path d="M19 10V20" />
+          <path d="M2 20h20" />
+          <path d="m12 2 9 5v3H3V7l9-5Z" />
+        </svg>
+      </div>
+
+      <h3>{mensaje}</h3>
+      <p>{indicacion}</p>
+    </div>
+
+    <p class="pagos-aviso">{aviso}</p>
+  </div>
+</section>
+
+<style>
+  .pagos {
+    width: 100%;
+    padding: 65px 24px;
+    box-sizing: border-box;
+    background: transparent;
+    color: #fff8f0;
+  }
+
+  .pagos-container {
+    width: 100%;
+    max-width: 1050px;
+    margin: 0 auto;
+  }
+
+  /* Encabezado */
+
+  .pagos-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .pagos-etiqueta {
+    display: block;
+    margin-bottom: 13px;
+    color: #d9a66e;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 5px;
+  }
+
+  .pagos-header h2 {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(38px, 4.5vw, 58px);
+    font-weight: 400;
+    line-height: 1.12;
+    letter-spacing: -1px;
+  }
+
+  .pagos-header p {
+    max-width: 650px;
+    margin: 17px auto 0;
+    color: rgba(255, 245, 235, 0.7);
+    font-size: 17px;
+    line-height: 1.6;
+  }
+
+  /* Tarjeta */
+
+  .pagos-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 255px;
+    padding: 38px 30px;
+    box-sizing: border-box;
+    text-align: center;
+
+    background: rgba(116, 65, 43, 0.3);
+    border: 1px solid rgba(222, 183, 151, 0.32);
+    border-radius: 36px;
+
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.04),
+      0 15px 35px rgba(0, 0, 0, 0.08);
+  }
+
+  .pagos-icon {
+    display: flex;
+    justify-content: center;
+    color: #d9a66e;
+    margin-bottom: 19px;
+  }
+
+  .pagos-card h3 {
+    margin: 0 0 13px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(25px, 3vw, 34px);
+    font-weight: 400;
+    line-height: 1.25;
+  }
+
+  .pagos-card p {
+    max-width: 600px;
+    margin: 0;
+    color: rgba(255, 245, 235, 0.7);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* Aviso */
+
+  .pagos-aviso {
+    margin: 28px 0 0;
+    color: rgba(255, 245, 235, 0.6);
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* Laptop y pantallas medianas */
+
+  @media (min-width: 1200px) {
+    .pagos {
+      padding: 75px 30px;
+    }
+
+    .pagos-container {
+      max-width: 1000px;
+    }
+  }
+
+  /* Tablets */
+
+  @media (max-width: 768px) {
+    .pagos {
+      padding: 55px 22px;
+    }
+
+    .pagos-header {
+      margin-bottom: 35px;
+    }
+
+    .pagos-header h2 {
+      font-size: 42px;
+    }
+
+    .pagos-header p {
+      font-size: 15px;
+      max-width: 520px;
+    }
+
+    .pagos-card {
+      min-height: 230px;
+      padding: 32px 25px;
+      border-radius: 30px;
+    }
+
+    .pagos-card h3 {
+      font-size: 29px;
+    }
+  }
+
+  /* Celulares */
+
+  @media (max-width: 480px) {
+    .pagos {
+      padding: 45px 17px;
+    }
+
+    .pagos-header {
+      margin-bottom: 30px;
+    }
+
+    .pagos-etiqueta {
+      font-size: 11px;
+      letter-spacing: 4px;
+      margin-bottom: 12px;
+    }
+
+    .pagos-header h2 {
+      font-size: clamp(32px, 9vw, 39px);
+      letter-spacing: -0.5px;
+    }
+
+    .pagos-header p {
+      margin-top: 13px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .pagos-card {
+      min-height: 215px;
+      padding: 30px 20px;
+      border-radius: 25px;
+    }
+
+    .pagos-icon {
+      margin-bottom: 16px;
+    }
+
+    .pagos-icon svg {
+      width: 39px;
+      height: 39px;
+    }
+
+    .pagos-card h3 {
+      font-size: 25px;
+      margin-bottom: 12px;
+    }
+
+    .pagos-card p {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .pagos-aviso {
+      margin-top: 22px;
+      font-size: 12px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pagos {
+      scroll-behavior: auto;
+    }
+  }
+</style>

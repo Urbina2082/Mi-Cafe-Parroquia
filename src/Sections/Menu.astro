@@ -1,0 +1,1097 @@
+---
+const {
+  title = "Sabores para cada momento",
+  subtitle = "Desayunos, comidas, parrilladas y bebidas. Precios en pesos mexicanos (MXN).",
+  image = "5.jpeg",
+  imageAlt = "Platillos de Mi Café Parroquia",
+  currency = "MXN",
+} = Astro.props;
+
+const sections = [
+  {
+    id: "hotcakes", name: "Hotcakes", items: [
+      { name: "Solo Panes (x3)", price: "$120" },
+      { name: "Americanos (x2) con huevo y tocino", price: "$200" },
+      { name: "Con fresa y plátano (x2)", price: "$145" },
+    ]
+  },
+  {
+    id: "bisquetes", name: "Bisquetes y pan francés", items: [
+      { name: "Mantequilla y mermelada", price: "$25" },
+      { name: "Con huevo y queso", price: "$70" },
+      { name: "Con huevo y sausage", price: "$99" },
+      { name: "French toast con fresa", price: "$85" },
+    ]
+  },
+  {
+    id: "crepas", name: "Crepas bretonas",
+    description: "Receta original de la Bretaña Francesa. Elige 2 frutas: plátano, fresa, manzana o kiwi. Todas llevan azúcar glas y chocolate.",
+    items: [
+      { name: "Nutella", price: "$145" },
+      { name: "Dulce de leche", price: "$145" },
+      { name: "Cajeta con nuez", price: "$145" },
+    ]
+  },
+  {
+    id: "almuerzos", name: "Almuerzos / Huevo", items: [
+      { name: "Huevos rancheros", price: "$145", description: "Estrellados en tortilla de maíz tostada, con frijoles y aguacate." },
+      { name: "Revuelto al gusto", price: "$145", description: "Con jamón, chorizo o chicharrón, acompañado de papas." },
+      { name: "Los bañados — salsa de machacado", price: "$195" },
+      { name: "Los bañados — salsa de chorizo", price: "$170" },
+      { name: "Los bañados — salsa de chicharrón", price: "$180" },
+      { name: "Los Motuleños", price: "$180", description: "¡Te recomendamos que los pruebes!" },
+      { name: "Los divorciados", price: "$150", description: "Con salsa de la que pica y de la que no pica." },
+    ]
+  },
+  {
+    id: "machacado", name: "Machacado",
+    description: "Precios por orden completa y media orden, respectivamente.",
+    items: [
+      { name: "Natural", price: "$185 / $130", note: "Completa / Media" },
+      { name: "En salsa", price: "$200 / $150", note: "Completa / Media" },
+      { name: "A la mexicana", price: "$197 / $140", note: "Completa / Media" },
+      { name: "Al piquín", price: "$210" },
+    ]
+  },
+  {
+    id: "papas", name: "Papas al gusto", items: [
+      { name: "Con chorizo, a la mexicana, al albañil o con huevo", price: "$110" },
+    ]
+  },
+  {
+    id: "molletes", name: "Molletes", items: [
+      { name: "Con queso gratinado, frijoles, chorizo y bandera", price: "$80" },
+    ]
+  },
+  {
+    id: "quesos", name: "Quesos", items: [
+      { name: "Asadero en salsa", price: "$165" },
+      { name: "Panela en salsa", price: "$150" },
+      { name: "Panela con nopales en salsa de fresadilla", price: "$155" },
+    ]
+  },
+  {
+    id: "omelettes", name: "Omelettes", items: [
+      { name: "El Mexicano", price: "$150", description: "Jamón, pico de gallo y queso." },
+      { name: "Champiñones", price: "$165", description: "Pico de gallo y queso." },
+      { name: "De arrachera", price: "$180", description: "Pico de gallo y queso." },
+      { name: "El Nopalero", price: "$150", description: "Jamón, cebolla y nopal." },
+      { name: "De Luxe", price: "$170", description: "Espinacas, jamón y queso; incluye pan tostado y fruta." },
+    ]
+  },
+  {
+    id: "chilaquiles", name: "Chilaquiles",
+    description: "Agrega la proteína que gustes por solo $40: huevo, pollo o arrachera.",
+    items: [
+      { name: "Salsa de chipotle", price: "$145" },
+      { name: "Salsa verde", price: "$145" },
+      { name: "Salsa de chorizo", price: "$145" },
+      { name: "Salsa molcajeteada", price: "$130" },
+      { name: "Salsa roja", price: "$130" },
+    ]
+  },
+  {
+    id: "ribeye-las-vegas", name: "Ribeye Las Vegas", items: [
+      { name: "Ribeye de 300 g con huevos estrellados y cubos de papa", price: "$299" },
+    ]
+  },
+  {
+    id: "burgers", name: "Parroquia Burger", items: [
+      { name: "La Godinez", price: "$165", description: "Clásica con jamón, queso y jardín." },
+      { name: "La sin chiste", price: "$90", description: "De res; solo carne y queso. No incluye papas." },
+      { name: "La gratinada", price: "$180", description: "De res, queso americano, manchego, tocino y aguacate." },
+      { name: "Spicy Buffalo Chicken", price: "$140", description: "Pollo frito, queso gratinado y jardín." },
+      { name: "TEXAS Burger", price: "$180", description: "Pollo frito, miel de maple, tocino, pepinillo y aderezo BBQ." },
+      { name: "MUSHROOM Burger", price: "$180", description: "Res, champiñones, cebolla caramelizada y queso gratinado." },
+      { name: "BRISKET Burger", price: "$170", description: "Queso americano, salchicha polaka y aderezo chipotle." },
+    ]
+  },
+  {
+    id: "paninis", name: "Paninis & Sandwiches", items: [
+      { name: "Torta LALO", price: "$158", description: "De brisket. Con esta torta iniciamos la cocina de lo que somos ahora. ¡Gracias a ti!" },
+      { name: "Sandwich Club", price: "$190", description: "Pollo con jamón, queso, tocino y aguacate." },
+      { name: "Sandwich Montecristo", price: "$170", description: "Queso manchego gratinado, tocino y jamón." },
+      { name: "Panini de arrachera", price: "$165", description: "Queso manchego y aderezo chipotle." },
+      { name: "Panini Italiano", price: "$145", description: "Queso manchego gratinado, salami y espinacas." },
+      { name: "Panini Philly Cheese", price: "$185", description: "Arrachera gratinada con pimientos y cebolla." },
+    ]
+  },
+  {
+    id: "kids", name: "Menú Kids", items: [
+      { name: "Mini pancakes", price: "$105", description: "Con huevo revuelto y sausage." },
+      { name: "Chicken Nuggets (x6)", price: "$80" },
+    ]
+  },
+  {
+    id: "entradas", name: "Entradas y botanas", items: [
+      { name: "Guacamole orden", price: "$120" },
+      { name: "Choriqueso", price: "$170", description: "Servido en sartén caliente." },
+      { name: "Sopa de tortilla", price: "$130" },
+      { name: "Choriqueso con brisket frito", price: "$190" },
+      { name: "Ensalada César", price: "$140" },
+      { name: "Frijoles con veneno", price: "$90" },
+      { name: "Crema de champiñones", price: "$145" },
+      { name: "Guacamole de la casa", price: "$145", description: "Con chile piquín, limón y chicharrón de cerdo." },
+    ]
+  },
+  {
+    id: "menudo", name: "Menudo", items: [
+      { name: "Tazón chico", price: "$90" },
+      { name: "Tazón grande", price: "$140" },
+    ]
+  },
+  {
+    id: "pozole", name: "Pozole", items: [
+      { name: "Tazón chico", price: "$70" },
+      { name: "Tazón grande", price: "$115" },
+    ]
+  },
+  {
+    id: "quesadillas", name: "Quesadillas gigantes",
+    description: "Elige tu relleno: chicharrón prensado, pastor, morita, arrachera, barbacoa o cortadillo.",
+    items: [
+      { name: "Quesadilla gigante a elegir", price: "$140" },
+    ]
+  },
+  {
+    id: "parrilladas", name: "Parrilladas", items: [
+      { name: "Parrillada individual", price: "$299", description: "250 g de arrachera, 1 quesadilla, papas a la francesa y guacamole." },
+      { name: "Parrillada 2 personas", price: "$525", description: "500 g de arrachera, salchicha polaca, papas a la francesa, nopal asado, 1 quesadilla, chile toreado, elote dorado y guacamole." },
+      { name: "Parrillada 4 ó 5 personas", price: "$1,030", description: "1 kg de arrachera, salchicha polaca, papas a la francesa, nopal asado, 2 quesadillas, 2 chiles toreados, elote dorado y guacamole." },
+      { name: "Rib Eye 500 g", price: "$370" },
+      { name: "Rib Eye 300 g", price: "$290" },
+      { name: "T-Bone", price: "$360" },
+    ]
+  },
+  {
+    id: "plato-fuerte", name: "Plato fuerte", items: [
+      { name: "Cortadillo de sirloin", price: "$200", description: "Carne guisada en salsa de tomate, con comino y muy norteño." },
+      { name: "Asado de puerco", price: "$200" },
+      { name: "Milanesa parmesana", price: "$215" },
+      { name: "Milanesa de res empanizada", price: "$185", description: "Con papas, frijoles y ensalada." },
+      { name: "Fajitas de pollo", price: "$200", description: "Con pimiento morrón y cebolla, arroz y ensalada fresca." },
+      { name: "Salmón a la plancha", price: "$325", description: "Con vegetales asados." },
+      { name: "Enchiladas suizas", price: "$180", description: "Con arroz y ensalada fresca." },
+      { name: "Enchiladas rojas", price: "$155", description: "Con queso, arroz y ensalada fresca." },
+      { name: "Taco gobernador (x1)", price: "$50" },
+      { name: "Caldo de res", price: "$130" },
+      { name: "Cortadillo Silvia", price: "$215", description: "De arrachera, guisado con salsa picosa y acompañado de frijoles." },
+      { name: "Tacos Parroquia", price: "$235", description: "De arrachera con costra de queso, pimientos y cebolla; acompañados de frijoles y guacamole." },
+      { name: "Diezmillo en fajitas", price: "$199", description: "A la mexicana, acompañado de frijoles y guacamole." },
+      { name: "Molcajete de arrachera", price: "$250", description: "Con queso panela asado, cebolla de rabo, nopal, salsa y frijoles de olla." },
+      { name: "Tacos de brisket (x4)", price: "$145" },
+      { name: "Tacos de barbacoa (x4)", price: "$160", description: "De lengua, acompañados de salsa macha." },
+      { name: "Filete de pescado", price: "$165", description: "Empanizado o a la plancha, acompañado de arroz, ensalada y papas fritas." },
+      { name: "Boneless", price: "$160", description: "Elige salsa: Búfalo, Lemon Pepper, BBQ o Mango Habanero." },
+    ]
+  },
+  {
+    id: "jugos", name: "Jugos naturales", items: [
+      { name: "Jugo de naranja", price: "$55" },
+      { name: "Jugo verde", price: "$55" },
+    ]
+  },
+  {
+    id: "limonadas", name: "Limonadas", items: [
+      { name: "Natural — 16 oz", price: "$38" },
+      { name: "Natural — 1 litro", price: "$90" },
+      { name: "Mineral — 16 oz", price: "$48" },
+      { name: "Mineral — 1 litro", price: "$105" },
+    ]
+  },
+  {
+    id: "chocolate", name: "Hot chocolate", items: [
+      { name: "Chico (12 oz)", price: "$55" },
+      { name: "Mediano (16 oz)", price: "$60" },
+      { name: "Grande (20 oz)", price: "$65" },
+    ]
+  },
+  {
+    id: "licuados", name: "Licuados", items: [
+      { name: "Licuado de fresa", price: "$60" },
+      { name: "Licuado de plátano", price: "$50" },
+      { name: "Licuado de papaya", price: "$60" },
+      { name: "Licuado de mango", price: "$55" },
+    ]
+  },
+  {
+    id: "malteadas", name: "Malteadas / Milkshakes", items: [
+      { name: "Oreo", price: "$66" },
+      { name: "Plátano", price: "$66" },
+      { name: "Gansito", price: "$77" },
+      { name: "Ferrero Rocher", price: "$99" },
+      { name: "Fresa", price: "$77" },
+      { name: "Mazapán", price: "$75" },
+      { name: "Reeses", price: "$88" },
+      { name: "Tequila Milkshake", price: "$132", note: "Solo mayores de 18 años." },
+    ]
+  },
+  {
+    id: "te", name: "Variedad de té", items: [
+      { name: "Frutos rojos", price: "$30" },
+      { name: "Té verde", price: "$30" },
+      { name: "Manzanilla", price: "$30" },
+      { name: "Jamaica", price: "$30" },
+      { name: "Té de jengibre", price: "$30" },
+      { name: "Hierbabuena", price: "$30" },
+      { name: "Té de limón", price: "$30" },
+      { name: "Té matcha", price: "$70" },
+    ]
+  },
+  {
+    id: "cafe", name: "Café",
+    description: "Refill disponible. El precio varía según el tipo y tamaño del vaso. Americano, descafeinado y 3 Países Colombiano.",
+    items: [
+      { name: "Capuchino original", price: "$69" },
+      { name: "Espresso", price: "$69" },
+      { name: "Latte", price: "$69" },
+      { name: "Capuchino moka", price: "$70" },
+      { name: "Capuchino vainilla", price: "$70" },
+      { name: "Chocolate frío", price: "$70" },
+      { name: "Espresso doble", price: "$70" },
+    ]
+  },
+  {
+    id: "refrescos", name: "Refrescos", items: [
+      { name: "Coca-Cola", price: "$38" },
+    ]
+  },
+  {
+    id: "cervezas", name: "Cervezas y preparados",
+    description: "Venta exclusiva para mayores de 18 años.",
+    items: [
+      { name: "Michelob Ultra", price: "$38" },
+      { name: "Modelo", price: "$38" },
+      { name: "Corona", price: "$30" },
+      { name: "Bud Light", price: "$38" },
+      { name: "Pacífico", price: "$38" },
+      { name: "Victoria", price: "$35" },
+      { name: "Mix Berrmato", price: "$60" },
+      { name: "Mix Michelada", price: "$60" },
+    ]
+  },
+];
+
+const totalItems = sections.reduce((total, section) => total + section.items.length, 0);
+---
+
+<section class="menu-section" id="menu">
+  <div class="menu-shell">
+
+    <header class="menu-heading">
+      <span class="eyebrow">NUESTRO MENÚ</span>
+      <h2>{title}</h2>
+      <p>{subtitle}</p>
+    </header>
+
+    <div class="menu-toolbar">
+      <label class="search-box">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="m16 16 4 4"></path>
+        </svg>
+        <input
+          id="menu-search"
+          type="search"
+          placeholder="Buscar platillo, ingrediente o bebida..."
+          autocomplete="off"
+          aria-label="Buscar en el menú"
+        />
+        <button id="clear-search" type="button" aria-label="Limpiar búsqueda" hidden>×</button>
+      </label>
+      <span class="menu-counter">{sections.length} categorías · {totalItems} opciones</span>
+    </div>
+
+    <div class="menu-intro" id="menu-intro">
+      <div>
+        <span class="eyebrow">DESCUBRE NUESTROS SABORES</span>
+        <h3>¿Qué se te antoja hoy?</h3>
+        <p>Explora nuestras categorías y descubre tus platillos favoritos. Selecciona una categoría para consultar sus opciones y precios.</p>
+      </div>
+      <div class="intro-image">
+        <img src={image} alt={imageAlt} loading="lazy" />
+        <span>MI CAFÉ PARROQUIA</span>
+      </div>
+    </div>
+
+    <!-- Categorías: los productos no se muestran hasta seleccionar una -->
+    <div class="categories" id="categories">
+      {sections.map((section) => (
+        <button class="category-card" type="button" data-category={section.id}>
+          <span class="category-name">{section.name}</span>
+          <span class="category-count">{section.items.length} opciones</span>
+          <span class="category-arrow">↗</span>
+        </button>
+      ))}
+    </div>
+
+    <!-- Productos -->
+    <div class="menu-detail" id="menu-detail" hidden>
+      <div class="detail-toolbar">
+        <button type="button" id="back-categories" class="back-button">
+          <span>←</span> Todas las categorías
+        </button>
+        <span id="results-count" class="results-count"></span>
+      </div>
+
+      <div id="menu-groups">
+        {sections.map((section) => (
+          <section class="menu-group" data-section={section.id} hidden>
+            <div class="group-heading">
+              <div>
+                <span class="eyebrow">MI CAFÉ PARROQUIA</span>
+                <h3>{section.name}</h3>
+              </div>
+              <span class="group-count">{section.items.length} opciones</span>
+            </div>
+
+            {section.description && (
+              <p class="group-description">{section.description}</p>
+            )}
+
+            <div class="products-grid">
+              {section.items.map((item) => (
+                <article
+                  class="product-card"
+                  data-search={`${section.name} ${item.name} ${item.description ?? ""} ${item.note ?? ""}`}
+                >
+                  <div class="product-heading">
+                    <h4>{item.name}</h4>
+                    <span class="price">{item.price}</span>
+                  </div>
+                  {item.description && <p>{item.description}</p>}
+                  {item.note && <span class="product-note">{item.note}</span>}
+                </article>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+
+      <div class="empty-state" id="empty-state" hidden>
+        <span>⌕</span>
+        <h3>No encontramos ese platillo</h3>
+        <p>Prueba con otro nombre o ingrediente.</p>
+        <button type="button" id="reset-search">Limpiar búsqueda</button>
+      </div>
+    </div>
+
+    <footer class="menu-footer">
+      <span>PRECIOS EN PESOS MEXICANOS ({currency})</span>
+      <span>Los precios y disponibilidad pueden cambiar sin previo aviso.</span>
+    </footer>
+
+  </div>
+</section>
+
+<script>
+  const root = document.querySelector("#menu");
+
+  if (root && root.dataset.ready !== "true") {
+    root.dataset.ready = "true";
+
+    const search = root.querySelector("#menu-search");
+    const clearSearch = root.querySelector("#clear-search");
+    const categories = root.querySelector("#categories");
+    const intro = root.querySelector("#menu-intro");
+    const detail = root.querySelector("#menu-detail");
+    const groups = [...root.querySelectorAll(".menu-group")];
+    const cards = [...root.querySelectorAll(".category-card")];
+    const back = root.querySelector("#back-categories");
+    const resultsCount = root.querySelector("#results-count");
+    const emptyState = root.querySelector("#empty-state");
+    const resetSearch = root.querySelector("#reset-search");
+
+    let activeCategory = null;
+
+    const normalize = (value) =>
+      value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+
+    function showCategories() {
+      activeCategory = null;
+      search.value = "";
+      intro.hidden = false;
+      categories.hidden = false;
+      detail.hidden = true;
+      clearSearch.hidden = true;
+      emptyState.hidden = true;
+      groups.forEach(group => group.hidden = true);
+    }
+
+    function showCategory(id) {
+      activeCategory = id;
+      search.value = "";
+      intro.hidden = true;
+      categories.hidden = true;
+      detail.hidden = false;
+      clearSearch.hidden = true;
+      emptyState.hidden = true;
+
+      groups.forEach(group => {
+        const selected = group.dataset.section === id;
+        group.hidden = !selected;
+
+        group.querySelectorAll(".product-card").forEach(item => {
+          item.hidden = false;
+        });
+      });
+
+      const selectedGroup = groups.find(group => group.dataset.section === id);
+      const count = selectedGroup?.querySelectorAll(".product-card").length || 0;
+
+      resultsCount.textContent = `${count} ${count === 1 ? "opción" : "opciones"}`;
+    }
+
+    function searchProducts() {
+      const query = normalize(search.value);
+
+      if (!query) {
+        if (activeCategory) showCategory(activeCategory);
+        else showCategories();
+        return;
+      }
+
+      activeCategory = null;
+      intro.hidden = true;
+      categories.hidden = true;
+      detail.hidden = false;
+      clearSearch.hidden = false;
+
+      let total = 0;
+
+      groups.forEach(group => {
+        let matches = 0;
+
+        group.querySelectorAll(".product-card").forEach(item => {
+          const text = normalize(item.dataset.search);
+          const found = text.includes(query);
+
+          item.hidden = !found;
+
+          if (found) {
+            matches++;
+            total++;
+          }
+        });
+
+        group.hidden = matches === 0;
+      });
+
+      resultsCount.textContent = `${total} resultados`;
+      emptyState.hidden = total > 0;
+    }
+
+    cards.forEach(card => {
+      card.addEventListener("click", () => {
+        showCategory(card.dataset.category);
+        detail.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+
+    back.addEventListener("click", () => {
+      showCategories();
+      root.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    search.addEventListener("input", searchProducts);
+
+    clearSearch.addEventListener("click", () => {
+      search.value = "";
+      searchProducts();
+      search.focus();
+    });
+
+    resetSearch.addEventListener("click", () => {
+      search.value = "";
+      showCategories();
+      search.focus();
+    });
+  }
+</script>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+
+  .menu-section {
+    --cream: #fff7ee;
+    --muted: rgba(255,241,226,.68);
+    --gold: #d8a66f;
+    --line: rgba(255,226,203,.22);
+
+    position: relative;
+    overflow: hidden;
+    padding: clamp(48px, 5vw, 76px) clamp(16px, 5vw, 76px);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+   
+  }
+
+  .menu-section *,
+  .menu-section *::before,
+  .menu-section *::after {
+    box-sizing: border-box;
+  }
+
+  .menu-shell {
+    width: 100%;
+    max-width: 1320px;
+    margin-inline: auto;
+  }
+
+  .menu-heading {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .eyebrow {
+    display: inline-block;
+    color: var(--gold);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .32em;
+  }
+
+  .menu-heading h2 {
+    margin: 10px 0;
+    font: 500 clamp(34px, 3.7vw, 52px)/1.12 'Playfair Display', Georgia, serif;
+    letter-spacing: -.035em;
+  }
+
+  .menu-heading p {
+    margin: 0;
+    color: var(--muted);
+    font-size: clamp(13px, 1.1vw, 16px);
+    line-height: 1.6;
+  }
+
+  /* BUSCADOR */
+
+  .menu-toolbar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 25px;
+  }
+
+  .search-box {
+    display: flex;
+    align-items: center;
+    width: min(100%, 570px);
+    min-height: 48px;
+    padding: 0 15px;
+    border: 1px solid rgba(255,231,211,.3);
+    border-radius: 40px;
+    background: rgba(35,17,10,.34);
+    transition: .25s ease;
+  }
+
+  .search-box:focus-within {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(216,166,111,.09);
+  }
+
+  .search-box svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    fill: none;
+    stroke: var(--muted);
+    stroke-width: 1.8;
+    stroke-linecap: round;
+  }
+
+  .search-box input {
+    width: 100%;
+    min-width: 0;
+    padding: 12px;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--cream);
+    font: 13px 'DM Sans', sans-serif;
+  }
+
+  .search-box input::placeholder {
+    color: rgba(255,241,226,.58);
+  }
+
+  .search-box input::-webkit-search-cancel-button {
+    display: none;
+  }
+
+  #clear-search {
+    border: 0;
+    background: none;
+    color: var(--muted);
+    font-size: 22px;
+    cursor: pointer;
+  }
+
+  #clear-search[hidden] {
+    display: none;
+  }
+
+  .menu-counter {
+    color: rgba(255,241,226,.48);
+    font-size: 10px;
+    letter-spacing: .08em;
+  }
+
+  /* INTRODUCCIÓN */
+
+  .menu-intro {
+    display: grid;
+    grid-template-columns: 1fr minmax(220px, 34%);
+    align-items: center;
+    gap: 26px;
+    margin-bottom: 17px;
+    padding: 22px 25px;
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    background: linear-gradient(110deg, rgba(255,239,222,.075), rgba(255,239,222,.025));
+  }
+
+  .menu-intro h3 {
+    margin: 8px 0;
+    font: 500 clamp(25px, 2.6vw, 34px)/1.2 'Playfair Display', Georgia, serif;
+  }
+
+  .menu-intro p {
+    max-width: 600px;
+    margin: 0;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  .intro-image {
+    position: relative;
+    height: 112px;
+    overflow: hidden;
+    border-radius: 15px;
+    background: #3b2116;
+  }
+
+  .intro-image::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+    background: linear-gradient(90deg, rgba(25,10,5,.2), rgba(25,10,5,.52));
+  }
+
+  .intro-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .intro-image span {
+    position: absolute;
+    z-index: 1;
+    right: 13px;
+    bottom: 12px;
+    color: white;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .2em;
+  }
+
+  /* CATEGORÍAS */
+
+  .categories {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .category-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    min-width: 0;
+    min-height: 62px;
+    padding: 12px 15px;
+    border: 1px solid var(--line);
+    border-radius: 13px;
+    color: var(--cream);
+    background: linear-gradient(125deg, rgba(255,239,222,.09), rgba(255,239,222,.035));
+    text-align: left;
+    cursor: pointer;
+    transition: transform .2s ease, border-color .2s ease, background .2s ease;
+  }
+
+  .category-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(216,166,111,.65);
+    background: rgba(255,239,222,.12);
+  }
+
+  .category-name {
+    min-width: 0;
+    font: 500 15px/1.3 'Playfair Display', Georgia, serif;
+  }
+
+  .category-count {
+    flex-shrink: 0;
+    color: var(--muted);
+    font-size: 10px;
+    white-space: nowrap;
+  }
+
+  .category-arrow {
+    color: var(--gold);
+    font-size: 16px;
+  }
+
+  /* PRODUCTOS */
+
+  .menu-detail {
+    margin-top: 5px;
+    scroll-margin-top: 25px;
+  }
+
+  .menu-detail[hidden],
+  .menu-group[hidden],
+  .product-card[hidden],
+  .empty-state[hidden] {
+    display: none !important;
+  }
+
+  .detail-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 13px;
+    border: 1px solid var(--line);
+    border-radius: 30px;
+    color: var(--cream);
+    background: rgba(255,239,222,.07);
+    font: 500 12px 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: .2s ease;
+  }
+
+  .back-button:hover {
+    border-color: var(--gold);
+    background: rgba(255,239,222,.13);
+  }
+
+  .back-button span {
+    color: var(--gold);
+    font-size: 16px;
+  }
+
+  .results-count {
+    color: var(--gold);
+    font-size: 11px;
+  }
+
+  .menu-group {
+    animation: menuAppear .35s ease both;
+  }
+
+  @keyframes menuAppear {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .group-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 13px;
+  }
+
+  .group-heading h3 {
+    margin: 5px 0 0;
+    font: 500 clamp(25px, 2.5vw, 34px)/1.15 'Playfair Display', Georgia, serif;
+  }
+
+  .group-count {
+    color: var(--muted);
+    font-size: 10px;
+  }
+
+  .group-description {
+    margin: 0 0 14px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.65;
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+  }
+
+  .product-card {
+    min-width: 0;
+    padding: 14px 16px;
+    border: 1px solid rgba(255,229,207,.22);
+    border-radius: 15px;
+    background: linear-gradient(125deg, rgba(255,239,222,.09), rgba(255,239,222,.035));
+    transition: border-color .2s ease, background .2s ease;
+  }
+
+  .product-card:hover {
+    border-color: rgba(226,179,133,.55);
+    background: rgba(255,239,222,.1);
+  }
+
+  .product-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .product-heading h4 {
+    min-width: 0;
+    margin: 0;
+    color: var(--cream);
+    font: 500 16px/1.35 'Playfair Display', Georgia, serif;
+  }
+
+  .price {
+    flex-shrink: 0;
+    color: var(--gold);
+    font: 600 17px 'Playfair Display', Georgia, serif;
+    white-space: nowrap;
+  }
+
+  .product-card p {
+    margin: 7px 0 0;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.55;
+  }
+
+  .product-note {
+    display: inline-block;
+    margin-top: 6px;
+    color: var(--gold);
+    font-size: 10px;
+  }
+
+  /* SIN RESULTADOS */
+
+  .empty-state {
+    padding: 38px 18px;
+    border: 1px dashed var(--line);
+    border-radius: 18px;
+    text-align: center;
+  }
+
+  .empty-state > span {
+    color: var(--gold);
+    font-size: 30px;
+  }
+
+  .empty-state h3 {
+    margin: 8px 0;
+    font: 500 23px 'Playfair Display', Georgia, serif;
+  }
+
+  .empty-state p {
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  .empty-state button {
+    margin-top: 8px;
+    padding: 9px 14px;
+    border: 0;
+    border-radius: 25px;
+    color: #3a1d11;
+    background: var(--cream);
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  /* PIE */
+
+  .menu-footer {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255,226,203,.15);
+    color: rgba(255,241,226,.46);
+    font-size: 9px;
+    letter-spacing: .07em;
+  }
+
+  /* TABLETS */
+
+  @media (max-width: 1000px) {
+    .categories {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 850px) {
+    .menu-intro {
+      grid-template-columns: 1fr 30%;
+    }
+
+    .products-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* CELULARES */
+
+  @media (max-width: 600px) {
+    .menu-section {
+      padding: 45px 15px 32px;
+    }
+
+    .menu-heading {
+      margin-bottom: 22px;
+    }
+
+    .menu-heading h2 {
+      font-size: clamp(31px, 9vw, 40px);
+    }
+
+    .menu-heading p {
+      max-width: 340px;
+      margin-inline: auto;
+      font-size: 12px;
+    }
+
+    .menu-toolbar {
+      gap: 7px;
+      margin-bottom: 19px;
+    }
+
+    .search-box {
+      min-height: 45px;
+      padding-inline: 12px;
+    }
+
+    .search-box input {
+      padding: 10px;
+      font-size: 12px;
+    }
+
+    .menu-counter {
+      font-size: 9px;
+    }
+
+    .menu-intro {
+      grid-template-columns: 1fr;
+      gap: 13px;
+      margin-bottom: 13px;
+      padding: 17px;
+      border-radius: 17px;
+    }
+
+    .menu-intro h3 {
+      font-size: 25px;
+    }
+
+    .menu-intro p {
+      font-size: 11px;
+    }
+
+    .intro-image {
+      height: 105px;
+    }
+
+    .categories {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .category-card {
+      min-height: 55px;
+      padding: 9px 10px;
+      border-radius: 11px;
+      gap: 6px;
+    }
+
+    .category-name {
+      font-size: 13px;
+    }
+
+    .category-count {
+      font-size: 9px;
+    }
+
+    .category-arrow {
+      font-size: 13px;
+    }
+
+    .detail-toolbar {
+      margin-bottom: 15px;
+    }
+
+    .back-button {
+      padding: 7px 10px;
+      font-size: 11px;
+    }
+
+    .group-heading h3 {
+      font-size: 27px;
+    }
+
+    .products-grid {
+      grid-template-columns: 1fr;
+      gap: 7px;
+    }
+
+    .product-card {
+      padding: 12px 13px;
+      border-radius: 12px;
+    }
+
+    .product-heading h4 {
+      font-size: 15px;
+    }
+
+    .price {
+      font-size: 16px;
+    }
+
+    .product-card p {
+      font-size: 10px;
+    }
+
+    .menu-footer {
+      flex-direction: column;
+      margin-top: 24px;
+      line-height: 1.5;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .menu-section *,
+    .menu-section *::before,
+    .menu-section *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+</style>

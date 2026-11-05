@@ -1,0 +1,314 @@
+
+---
+const {
+  logo = "/icon.avif",
+  nombre = "Mi Café Parroquia",
+  descripcion = "Mi Café Parroquia — buenos momentos, grandes sabores.",
+  anio = new Date().getFullYear(),
+} = Astro.props;
+
+const navegacion = [
+  { nombre: "Menú", href: "/menu" },
+  { nombre: "Galería", href: "/galeria" },
+  { nombre: "Promociones", href: "/promociones" },
+  { nombre: "Pagos", href: "/pagos" },
+];
+
+const visitas = [
+  { nombre: "Ubicación", href: "/ubicacion" },
+  { nombre: "Horarios", href: "/ubicacion#horarios" },
+  { nombre: "Contacto", href: "/contacto" },
+];
+---
+
+<footer class="footer">
+  <div class="footer-container">
+
+    <div class="footer-main">
+
+      <!-- Marca -->
+      <div class="footer-brand">
+        <a href="/" class="footer-logo">
+          <img src={logo} alt={`Logo de ${nombre}`} />
+        </a>
+
+        <p>{descripcion}</p>
+      </div>
+
+      <!-- Navegación -->
+      <nav class="footer-column" aria-label="Navegación">
+        <h3>Navegación</h3>
+
+        <ul>
+          {navegacion.map((item) => (
+            <li>
+              <a href={item.href}>{item.nombre}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <!-- Visítanos -->
+      <nav class="footer-column" aria-label="Información">
+        <h3>Visítanos</h3>
+
+        <ul>
+          {visitas.map((item) => (
+            <li>
+              <a href={item.href}>{item.nombre}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+    </div>
+
+    <!-- Copyright -->
+    <div class="footer-bottom">
+      <p>© {anio} {nombre}</p>
+    </div>
+
+  </div>
+</footer>
+
+<style>
+  .footer {
+    width: 100%;
+    padding: 25px 24px;
+    box-sizing: border-box;
+    background: transparent;
+    color: #fff8f0;
+  }
+
+  .footer-container {
+    width: 100%;
+    max-width: 1450px;
+    margin: 0 auto;
+    overflow: hidden;
+
+    background: rgba(116, 65, 43, 0.3);
+    border: 1px solid rgba(222, 183, 151, 0.3);
+    border-radius: 36px;
+
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.04),
+      0 15px 35px rgba(0, 0, 0, 0.08);
+  }
+
+  /* Contenido principal */
+
+  .footer-main {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 55px;
+    padding: 55px 60px 45px;
+  }
+
+  /* Marca */
+
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 145px;
+    height: 145px;
+    margin-bottom: 25px;
+    overflow: hidden;
+
+    background: #fffaf2;
+    border-radius: 30px;
+  }
+
+  .footer-logo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    object-fit: contain;
+  }
+
+  .footer-brand p {
+    max-width: 350px;
+    margin: 0;
+
+    color: rgba(255, 245, 235, 0.85);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 20px;
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  /* Columnas */
+
+  .footer-column {
+    padding-top: 7px;
+  }
+
+  .footer-column h3 {
+    margin: 0 0 24px;
+
+    color: #fff8f0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 21px;
+    font-weight: 400;
+  }
+
+  .footer-column ul {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .footer-column a {
+    display: inline-block;
+    color: rgba(255, 245, 235, 0.7);
+    font-size: 15px;
+    text-decoration: none;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+
+  .footer-column a:hover {
+    color: #d9a66e;
+    transform: translateX(4px);
+  }
+
+  /* Copyright */
+
+  .footer-bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 65px;
+    padding: 15px 25px;
+    border-top: 1px solid rgba(222, 183, 151, 0.16);
+    box-sizing: border-box;
+  }
+
+  .footer-bottom p {
+    margin: 0;
+    color: rgba(255, 245, 235, 0.6);
+    font-size: 13px;
+    text-align: center;
+  }
+
+  /* Tablets */
+
+  @media (max-width: 800px) {
+    .footer-main {
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 25px;
+      padding: 40px 35px;
+    }
+
+    .footer-logo {
+      width: 110px;
+      height: 110px;
+      border-radius: 24px;
+    }
+
+    .footer-brand p {
+      font-size: 17px;
+    }
+
+    .footer-column h3 {
+      font-size: 19px;
+    }
+
+    .footer-column a {
+      font-size: 14px;
+    }
+  }
+
+  /* Celulares */
+
+  @media (max-width: 600px) {
+    .footer {
+      padding: 20px 15px;
+    }
+
+    .footer-container {
+      border-radius: 27px;
+    }
+
+    .footer-main {
+      grid-template-columns: 1fr 1fr;
+      gap: 32px 20px;
+      padding: 30px 24px;
+    }
+
+    .footer-brand {
+      grid-column: 1 / -1;
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer-logo {
+      width: 95px;
+      height: 95px;
+      margin-bottom: 16px;
+      border-radius: 22px;
+    }
+
+    .footer-brand p {
+      max-width: 290px;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .footer-column {
+      padding-top: 5px;
+    }
+
+    .footer-column h3 {
+      margin-bottom: 16px;
+      font-size: 19px;
+    }
+
+    .footer-column ul {
+      gap: 12px;
+    }
+
+    .footer-column a {
+      font-size: 14px;
+    }
+
+    .footer-bottom {
+      min-height: 55px;
+    }
+
+    .footer-bottom p {
+      font-size: 12px;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .footer-main {
+      padding: 27px 18px;
+      gap: 28px 14px;
+    }
+
+    .footer-column h3 {
+      font-size: 17px;
+    }
+
+    .footer-column a {
+      font-size: 13px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .footer-column a {
+      transition: none;
+    }
+  }
+</style>

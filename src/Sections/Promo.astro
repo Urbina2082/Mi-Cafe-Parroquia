@@ -1,0 +1,223 @@
+---
+const {
+  imagen = "/13.jpg",
+  etiqueta = "PROMOCIONES",
+  titulo = "Promociones con sabor",
+  subtitulo = "Descubre nuestras próximas promociones.",
+  descripcion = "Desayunos especiales, parrilladas para compartir y más. Muy pronto aquí.",
+} = Astro.props;
+---
+
+<section class="promociones" id="promociones">
+  <div class="promociones-header">
+    <span class="promociones-label">{etiqueta}</span>
+    <h2>{titulo}</h2>
+  </div>
+
+  <div class="promociones-card">
+    <div class="promociones-image">
+      <img src={imagen} alt="Promociones y platillos del restaurante" />
+    </div>
+
+    <div class="promociones-content">
+      <div class="promociones-icon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="36"
+          height="36"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.7"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="m12 3 1.9 5.8L20 11l-6.1 2.2L12 19l-2-5.8L4 11l6-2.2L12 3Z" />
+          <path d="m19 14 1.2 2.8L23 18l-2.8 1.2L19 22l-1.2-2.8L15 18l2.8-1.2L19 14Z" />
+        </svg>
+      </div>
+
+      <h3>{subtitulo}</h3>
+      <p>{descripcion}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .promociones {
+    width: 100%;
+    padding: 90px 24px;
+    background: transparent;
+    color: #fff8f0;
+    box-sizing: border-box;
+  }
+
+  .promociones-header {
+    text-align: center;
+    margin: 0 auto 62px;
+  }
+
+  .promociones-label {
+    display: block;
+    margin-bottom: 16px;
+    color: #c99a69;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 5px;
+  }
+
+  .promociones-header h2 {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(36px, 4vw, 54px);
+    font-weight: 400;
+    line-height: 1.15;
+  }
+
+  .promociones-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    max-width: 1135px;
+    min-height: 425px;
+    margin: 0 auto;
+    overflow: hidden;
+
+    background: rgba(116, 65, 43, 0.28);
+    border: 1px solid rgba(222, 183, 151, 0.3);
+    border-radius: 40px;
+
+    box-shadow: 0 20px 55px rgba(0, 0, 0, 0.12);
+  }
+
+  .promociones-image {
+    min-width: 0;
+    min-height: 425px;
+    overflow: hidden;
+  }
+
+  .promociones-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 425px;
+    object-fit: cover;
+    transition: transform 0.7s ease;
+  }
+
+  .promociones-card:hover .promociones-image img {
+    transform: scale(1.04);
+  }
+
+  .promociones-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: clamp(32px, 4vw, 65px);
+    min-width: 0;
+  }
+
+  .promociones-icon {
+    color: #d9a66e;
+    margin-bottom: 22px;
+  }
+
+  .promociones-content h3 {
+    max-width: 440px;
+    margin: 0 0 24px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(29px, 3vw, 43px);
+    font-weight: 400;
+    line-height: 1.17;
+    color: #fff8f0;
+  }
+
+  .promociones-content p {
+    max-width: 460px;
+    margin: 0;
+    color: rgba(255, 245, 235, 0.7);
+    font-size: 17px;
+    line-height: 1.8;
+  }
+
+  /* Tablets */
+  @media (max-width: 900px) {
+    .promociones {
+      padding: 70px 22px;
+    }
+
+    .promociones-card {
+      min-height: 350px;
+    }
+
+    .promociones-image,
+    .promociones-image img {
+      min-height: 350px;
+    }
+
+    .promociones-content {
+      padding: 30px;
+    }
+  }
+
+  /* Celulares */
+  @media (max-width: 640px) {
+    .promociones {
+      padding: 55px 18px;
+    }
+
+    .promociones-header {
+      margin-bottom: 35px;
+    }
+
+    .promociones-label {
+      font-size: 11px;
+      letter-spacing: 4px;
+      margin-bottom: 12px;
+    }
+
+    .promociones-header h2 {
+      font-size: 36px;
+    }
+
+    .promociones-card {
+      grid-template-columns: 1fr;
+      border-radius: 26px;
+    }
+
+    .promociones-image {
+      min-height: 240px;
+      height: 240px;
+    }
+
+    .promociones-image img {
+      min-height: 240px;
+      height: 240px;
+    }
+
+    .promociones-content {
+      padding: 30px 25px 35px;
+    }
+
+    .promociones-icon {
+      margin-bottom: 15px;
+    }
+
+    .promociones-content h3 {
+      font-size: 30px;
+      margin-bottom: 15px;
+    }
+
+    .promociones-content p {
+      font-size: 15px;
+      line-height: 1.7;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .promociones-image img {
+      transition: none;
+    }
+  }
+</style>

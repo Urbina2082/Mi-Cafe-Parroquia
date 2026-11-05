@@ -1,0 +1,463 @@
+---
+const {
+  image = "3.jpeg",
+  logo = "logo.avif",
+  eyebrow = "BIENVENIDO",
+  title = "Bienvenido a Mi Café Parroquia",
+  description = "Un espacio para disfrutar buenos desayunos, compartir en familia y descubrir una gran variedad de sabores, desde nuestros platillos tradicionales hasta nuestras parrilladas y cortes."
+} = Astro.props;
+---
+
+<section class="welcome" id="bienvenida">
+
+  <!-- Fondo ambiental -->
+  <div class="welcome__ambient"></div>
+
+  <div class="welcome__container">
+
+    <!-- Fotografía -->
+    <div class="welcome__image">
+      <img
+        src={image}
+        alt="Interior de Mi Café Parroquia"
+        loading="lazy"
+      />
+      <div class="welcome__image-overlay"></div>
+    </div>
+
+    <!-- Tarjeta de cristal -->
+    <article class="welcome__card">
+
+      <!-- Logo decorativo -->
+      <div class="welcome__logo">
+        <img src={logo} alt="Logo Mi Café Parroquia" />
+      </div>
+
+      <!-- Contenido -->
+      <div class="welcome__content">
+
+        <span class="welcome__eyebrow">
+          {eyebrow}
+        </span>
+
+        <h2>{title}</h2>
+
+        <p>{description}</p>
+
+        <div class="welcome__separator"></div>
+
+      </div>
+
+    </article>
+
+  </div>
+
+</section>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+
+  .welcome {
+    --brown-dark: #251109;
+    --brown: #492719;
+    --gold: #d9a66d;
+    --cream: #fff6eb;
+
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    overflow: hidden;
+    padding: 85px 4.5%;
+
+  
+
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* ILUMINACIÓN DE FONDO */
+
+  .welcome__ambient {
+    position: absolute;
+    z-index: -1;
+    top: 10%;
+    left: 35%;
+
+    width: 500px;
+    height: 500px;
+
+    border-radius: 50%;
+  
+    filter: blur(140px);
+    pointer-events: none;
+  }
+
+  /* CONTENEDOR PRINCIPAL */
+
+  .welcome__container {
+    position: relative;
+    width: 100%;
+    max-width: 1650px;
+    min-height: 600px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    align-items: center;
+  }
+
+  /* IMAGEN */
+
+  .welcome__image {
+    position: relative;
+    z-index: 1;
+
+    width: 100%;
+    height: 600px;
+    overflow: hidden;
+
+    border-radius: 40px;
+
+    box-shadow:
+      0 25px 70px rgba(0, 0, 0, 0.32),
+      0 0 0 1px rgba(255, 255, 255, 0.07);
+
+    animation: imageReveal 1s ease both;
+  }
+
+  .welcome__image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+
+    transition: transform 0.8s ease;
+  }
+
+  .welcome__image:hover img {
+    transform: scale(1.045);
+  }
+
+  .welcome__image-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+
+    background: linear-gradient(
+      0deg,
+      rgba(30, 12, 5, 0.16),
+      transparent 50%
+    );
+  }
+
+  /* TARJETA GLASS */
+
+  .welcome__card {
+    position: relative;
+    z-index: 2;
+
+    width: calc(100% + 85px);
+    min-height: 480px;
+    margin-left: -85px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 65px;
+
+    border: 1px solid rgba(255, 228, 205, 0.29);
+    border-radius: 42px;
+
+    background:
+      linear-gradient(
+        120deg,
+        rgba(117, 67, 45, 0.73),
+        rgba(66, 35, 24, 0.87)
+      );
+
+    backdrop-filter: blur(25px) saturate(130%);
+    -webkit-backdrop-filter: blur(25px) saturate(130%);
+
+    box-shadow:
+      0 30px 70px rgba(0, 0, 0, 0.25),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+
+    animation: cardReveal 1.1s ease both;
+  }
+
+  /* REFLEJO DE LUZ */
+
+  .welcome__card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 230px;
+    height: 100%;
+
+    background: radial-gradient(
+      ellipse at left center,
+      rgba(207, 91, 40, 0.35),
+      transparent 75%
+    );
+
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  .welcome__card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    border-radius: inherit;
+    background: linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0.045),
+      transparent 40%
+    );
+
+    pointer-events: none;
+  }
+
+  /* LOGOTIPO */
+
+  .welcome__logo {
+    position: absolute;
+    top: -55px;
+    right: 25px;
+
+    width: 180px;
+    height: 180px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0.13;
+    pointer-events: none;
+  }
+
+  .welcome__logo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: brightness(1.5);
+  }
+
+  /* CONTENIDO */
+
+  .welcome__content {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+  }
+
+  .welcome__eyebrow {
+    display: inline-block;
+    margin-bottom: 20px;
+
+    color: var(--gold);
+
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 5px;
+  }
+
+  .welcome h2 {
+    max-width: 700px;
+    margin: 0 0 28px;
+
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(38px, 3.2vw, 56px);
+    line-height: 1.13;
+    font-weight: 500;
+    letter-spacing: -1px;
+
+    color: var(--cream);
+  }
+
+  .welcome__content p {
+    max-width: 760px;
+    margin: 0;
+
+    color: rgba(255, 244, 232, 0.70);
+
+    font-size: 20px;
+    line-height: 1.95;
+    font-weight: 400;
+  }
+
+  /* LÍNEA DECORATIVA */
+
+  .welcome__separator {
+    width: 100%;
+    height: 1px;
+    margin-top: 42px;
+
+    background: linear-gradient(
+      90deg,
+      rgba(222, 172, 120, 0.65),
+      rgba(222, 172, 120, 0.12),
+      transparent
+    );
+  }
+
+  /* ANIMACIONES */
+
+  @keyframes imageReveal {
+    from {
+      opacity: 0;
+      transform: translateX(-35px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes cardReveal {
+    from {
+      opacity: 0;
+      transform: translateX(35px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  /* TABLETS */
+
+  @media (max-width: 1050px) {
+    .welcome {
+      padding: 75px 4%;
+    }
+
+    .welcome__container {
+      min-height: 480px;
+    }
+
+    .welcome__image {
+      height: 480px;
+    }
+
+    .welcome__card {
+      width: calc(100% + 55px);
+      min-height: 390px;
+      margin-left: -55px;
+      padding: 40px;
+    }
+
+    .welcome h2 {
+      font-size: clamp(34px, 4vw, 45px);
+    }
+
+    .welcome__content p {
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    .welcome__logo {
+      width: 135px;
+      height: 135px;
+      top: -30px;
+    }
+  }
+
+  /* MÓVILES */
+
+  @media (max-width: 700px) {
+    .welcome {
+      padding: 65px 6%;
+    }
+
+    .welcome__container {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      min-height: auto;
+    }
+
+    .welcome__image {
+      width: 100%;
+      height: clamp(270px, 75vw, 390px);
+      border-radius: 25px;
+    }
+
+    .welcome__card {
+      width: calc(100% - 20px);
+      min-height: auto;
+
+      margin: -40px auto 0;
+      padding: 48px 27px 32px;
+
+      border-radius: 27px;
+    }
+
+    .welcome__logo {
+      width: 105px;
+      height: 105px;
+      top: -25px;
+      right: 12px;
+      opacity: 0.12;
+    }
+
+    .welcome__eyebrow {
+      font-size: 11px;
+      letter-spacing: 4px;
+      margin-bottom: 17px;
+    }
+
+    .welcome h2 {
+      font-size: clamp(32px, 8vw, 43px);
+      line-height: 1.16;
+      margin-bottom: 20px;
+    }
+
+    .welcome__content p {
+      font-size: 15px;
+      line-height: 1.85;
+    }
+
+    .welcome__separator {
+      margin-top: 28px;
+    }
+  }
+
+  /* CELULARES PEQUEÑOS */
+
+  @media (max-width: 380px) {
+    .welcome {
+      padding: 50px 5%;
+    }
+
+    .welcome__card {
+      padding: 42px 22px 27px;
+    }
+
+    .welcome h2 {
+      font-size: 30px;
+    }
+
+    .welcome__content p {
+      font-size: 14px;
+    }
+  }
+
+  /* ACCESIBILIDAD */
+
+  @media (prefers-reduced-motion: reduce) {
+    .welcome *,
+    .welcome *::before,
+    .welcome *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+</style>

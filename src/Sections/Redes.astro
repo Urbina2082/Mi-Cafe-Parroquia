@@ -1,0 +1,458 @@
+---
+const ubicacionUrl = "https://maps.app.goo.gl/pH3mCKnAgnmCZRDH9";
+
+const horarios = [
+  { dia: "Lunes", hora: "6:00 a. m. – 10:00 p. m." },
+  { dia: "Martes", hora: "6:00 a. m. – 10:00 p. m." },
+  { dia: "Miércoles", hora: "6:00 a. m. – 10:00 p. m." },
+  { dia: "Jueves", hora: "Cerrado", cerrado: true },
+  { dia: "Viernes", hora: "6:00 a. m. – 5:00 p. m." },
+  { dia: "Sábado", hora: "6:00 a. m. – 5:00 p. m." },
+  { dia: "Domingo", hora: "6:00 a. m. – 5:00 p. m." },
+];
+---
+
+<section class="ubicacion" id="ubicacion">
+  <header class="ubicacion-header">
+    <span>UBICACIÓN</span>
+    <h2>Encuéntranos</h2>
+  </header>
+
+  <div class="ubicacion-grid">
+
+    <!-- Mapa / ubicación -->
+    <a
+      class="mapa-card"
+      href={ubicacionUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Ver ubicación en Google Maps"
+    >
+      <div class="mapa-content">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="38"
+          height="38"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
+          <circle cx="12" cy="10" r="2.5" />
+        </svg>
+
+        <h3>Encuentra nuestra ubicación</h3>
+        <p>Consulta nuestra ubicación y descubre cómo llegar.</p>
+
+        <span class="mapa-link">
+          Ver en Google Maps
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 17 17 7M7 7h10v10" />
+          </svg>
+        </span>
+      </div>
+    </a>
+
+    <!-- Información -->
+    <div class="ubicacion-info">
+
+      <!-- Dirección -->
+      <article class="info-card direccion-card">
+        <h3>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
+            <circle cx="12" cy="10" r="2.5" />
+          </svg>
+          Dirección
+        </h3>
+
+        <div class="direccion-texto">
+          Consulta nuestra ubicación en Google Maps.
+        </div>
+
+        <div class="ubicacion-buttons">
+          <a
+            href={ubicacionUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-principal"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m22 2-7 20-4-9-9-4Z" />
+              <path d="M22 2 11 13" />
+            </svg>
+            Cómo llegar
+          </a>
+
+          <a
+            href={ubicacionUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-secundario"
+          >
+            Abrir en Google Maps
+          </a>
+        </div>
+      </article>
+
+      <!-- Horarios -->
+      <article class="info-card horarios-card">
+        <h3>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 6v6l4 2" />
+          </svg>
+          Nuestros horarios
+        </h3>
+
+        <div class="horarios-lista">
+          {horarios.map((item) => (
+            <div class:list={["horario-item", { "horario-cerrado": item.cerrado }]}>
+              <span>{item.dia}</span>
+              <span>{item.hora}</span>
+            </div>
+          ))}
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .ubicacion {
+    width: 100%;
+    padding: 85px 24px;
+    background: transparent;
+    color: #fff8f0;
+    box-sizing: border-box;
+  }
+
+  .ubicacion-header {
+    text-align: center;
+    margin-bottom: 55px;
+  }
+
+  .ubicacion-header span {
+    display: block;
+    margin-bottom: 15px;
+    color: #c99a69;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 5px;
+  }
+
+  .ubicacion-header h2 {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(36px, 4vw, 52px);
+    font-weight: 400;
+    line-height: 1.15;
+  }
+
+  .ubicacion-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.88fr;
+    gap: 28px;
+    width: 100%;
+    max-width: 1510px;
+    margin: 0 auto;
+  }
+
+  /* Mapa */
+
+  .mapa-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 500px;
+    padding: 35px;
+    overflow: hidden;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+
+    background: rgba(151, 105, 79, 0.24);
+    border: 1px solid rgba(222, 183, 151, 0.3);
+    border-radius: 40px;
+    box-shadow: inset 0 0 0 10px rgba(255, 230, 208, 0.07);
+
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+
+  .mapa-card:hover {
+    background: rgba(151, 105, 79, 0.34);
+    transform: translateY(-3px);
+  }
+
+  .mapa-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+  }
+
+  .mapa-content > svg {
+    color: #d9a66e;
+    margin-bottom: 20px;
+  }
+
+  .mapa-content h3 {
+    margin: 0 0 12px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 25px;
+    font-weight: 400;
+  }
+
+  .mapa-content p {
+    margin: 0;
+    color: rgba(255, 245, 235, 0.68);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .mapa-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 24px;
+    color: #d9a66e;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  /* Paneles laterales */
+
+  .ubicacion-info {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    min-width: 0;
+  }
+
+  .info-card {
+    padding: 35px;
+    border: 1px solid rgba(222, 183, 151, 0.3);
+    border-radius: 36px;
+    background: rgba(116, 65, 43, 0.28);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+  }
+
+  .info-card h3 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 25px;
+    color: #fff8f0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 26px;
+    font-weight: 400;
+  }
+
+  .info-card h3 svg {
+    flex-shrink: 0;
+    color: #d9a66e;
+  }
+
+  .direccion-texto {
+    padding: 16px 19px;
+    margin-bottom: 27px;
+    border: 1px dashed rgba(222, 183, 151, 0.25);
+    border-radius: 30px;
+    color: rgba(255, 245, 235, 0.68);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .ubicacion-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .ubicacion-buttons a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 0 21px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.25s ease;
+  }
+
+  .btn-principal {
+    background: #fff8f0;
+    color: #482b1e;
+  }
+
+  .btn-principal:hover {
+    background: #e8c7a6;
+    transform: translateY(-2px);
+  }
+
+  .btn-secundario {
+    color: rgba(255, 245, 235, 0.85);
+    border: 1px solid rgba(222, 183, 151, 0.35);
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .btn-secundario:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  /* Horarios */
+
+  .horarios-card {
+    padding-bottom: 28px;
+  }
+
+  .horarios-card h3 {
+    margin-bottom: 22px;
+  }
+
+  .horarios-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .horario-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 11px 0;
+    border-bottom: 1px solid rgba(222, 183, 151, 0.12);
+    color: rgba(255, 245, 235, 0.8);
+    font-size: 14px;
+  }
+
+  .horario-item:last-child {
+    border-bottom: none;
+  }
+
+  .horario-item span:last-child {
+    text-align: right;
+    font-weight: 500;
+    color: #fff8f0;
+  }
+
+  .horario-cerrado span:last-child {
+    color: #d9a66e;
+    font-weight: 700;
+  }
+
+  /* Tablets */
+
+  @media (max-width: 1000px) {
+    .ubicacion-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .mapa-card {
+      min-height: 470px;
+    }
+
+    .info-card {
+      padding: 27px;
+    }
+
+    .info-card h3 {
+      font-size: 23px;
+    }
+
+    .ubicacion-buttons a {
+      padding: 0 15px;
+      font-size: 13px;
+    }
+  }
+
+  /* Celulares */
+
+  @media (max-width: 700px) {
+    .ubicacion {
+      padding: 60px 17px;
+    }
+
+    .ubicacion-header {
+      margin-bottom: 35px;
+    }
+
+    .ubicacion-header span {
+      font-size: 11px;
+      letter-spacing: 4px;
+    }
+
+    .ubicacion-header h2 {
+      font-size: 37px;
+    }
+
+    .ubicacion-grid {
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    .mapa-card {
+      min-height: 270px;
+      border-radius: 27px;
+    }
+
+    .mapa-content h3 {
+      font-size: 23px;
+    }
+
+    .info-card {
+      padding: 27px 23px;
+      border-radius: 27px;
+    }
+
+    .info-card h3 {
+      font-size: 23px;
+      margin-bottom: 20px;
+    }
+
+    .direccion-texto {
+      font-size: 13px;
+    }
+
+    .ubicacion-buttons {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    .ubicacion-buttons a {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .horario-item {
+      font-size: 13px;
+      padding: 12px 0;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .horario-item {
+      font-size: 12px;
+    }
+
+    .info-card {
+      padding: 23px 17px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mapa-card,
+    .ubicacion-buttons a {
+      transition: none;
+    }
+  }
+</style>
