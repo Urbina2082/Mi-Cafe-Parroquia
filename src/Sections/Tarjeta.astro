@@ -1,17 +1,19 @@
-
 ---
 const {
   etiqueta = "PAGOS",
   titulo = "Transferencias y pagos",
-  descripcion = "Datos para transferencia bancaria. Esta página no procesa pagos.",
-  mensaje = "Datos bancarios próximamente",
-  indicacion = "Pregunta en el restaurante por las opciones de pago disponibles.",
-  aviso = "Nunca te pediremos NIP, CVV ni contraseñas.",
+  descripcion = "Realiza tu transferencia bancaria con los siguientes datos.",
+  aviso = "Verifica los datos antes de realizar tu transferencia.",
 } = Astro.props;
+
+const tarjeta = "4152 3142 4631 8672";
+const titular = " Silvia Hernández F.";
+const banco = "BBVA";
 ---
 
-<section class="pagos" id="tarjeta">
+<section class="pagos" id="pagos">
   <div class="pagos-container">
+
     <header class="pagos-header">
       <span class="pagos-etiqueta">{etiqueta}</span>
       <h2>{titulo}</h2>
@@ -19,40 +21,88 @@ const {
     </header>
 
     <div class="pagos-card">
+
       <div class="pagos-icon">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="46"
-          height="46"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.8"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="M3 10h18" />
-          <path d="M5 10V20" />
-          <path d="M9 10V20" />
-          <path d="M15 10V20" />
-          <path d="M19 10V20" />
-          <path d="M2 20h20" />
-          <path d="m12 2 9 5v3H3V7l9-5Z" />
+        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36"
+          viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="5" width="20" height="14" rx="2"/>
+          <path d="M2 10h20"/>
+          <path d="M6 15h3"/>
         </svg>
       </div>
 
-      <h3>{mensaje}</h3>
-      <p>{indicacion}</p>
-    </div>
+      <span class="pagos-banco">{banco}</span>
 
-    <p class="pagos-aviso">{aviso}</p>
+      <div class="pagos-datos">
+
+        <div class="dato">
+          <span class="dato-label">Número de tarjeta</span>
+
+          <div class="dato-valor tarjeta-valor">
+            <strong>{tarjeta}</strong>
+
+            <button
+              class="copiar-btn"
+              type="button"
+              data-copy={tarjeta.replaceAll(" ", "")}
+              aria-label="Copiar número de tarjeta"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="8" y="8" width="13" height="13" rx="2"/>
+                <path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/>
+              </svg>
+              <span>Copiar</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="dato">
+          <span class="dato-label">Titular de la cuenta</span>
+          <strong class="dato-titular">{titular}</strong>
+        </div>
+
+        <div class="dato">
+          <span class="dato-label">Institución bancaria</span>
+          <strong class="dato-banco">{banco}</strong>
+        </div>
+
+      </div>
+
+      <p class="pagos-aviso">{aviso}</p>
+
+    </div>
   </div>
 </section>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>(".copiar-btn").forEach((boton) => {
+    boton.addEventListener("click", async () => {
+      const texto = boton.dataset.copy;
+      if (!texto) return;
+
+      try {
+        await navigator.clipboard.writeText(texto);
+
+        const textoOriginal = boton.innerHTML;
+        boton.innerHTML = "✓ Copiado";
+
+        setTimeout(() => {
+          boton.innerHTML = textoOriginal;
+        }, 1800);
+      } catch {
+        boton.querySelector("span")!.textContent = "No disponible";
+      }
+    });
+  });
+</script>
 
 <style>
   .pagos {
     width: 100%;
-    padding: 65px 24px;
+    padding: 45px 24px;
     box-sizing: border-box;
     background: transparent;
     color: #fff8f0;
@@ -60,22 +110,20 @@ const {
 
   .pagos-container {
     width: 100%;
-    max-width: 1050px;
+    max-width: 850px;
     margin: 0 auto;
   }
 
-  /* Encabezado */
-
   .pagos-header {
     text-align: center;
-    margin-bottom: 48px;
+    margin-bottom: 28px;
   }
 
   .pagos-etiqueta {
     display: block;
-    margin-bottom: 13px;
+    margin-bottom: 12px;
     color: #d9a66e;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
     letter-spacing: 5px;
   }
@@ -83,35 +131,32 @@ const {
   .pagos-header h2 {
     margin: 0;
     font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(38px, 4.5vw, 58px);
+    font-size: clamp(32px, 4vw, 46px);
     font-weight: 400;
-    line-height: 1.12;
-    letter-spacing: -1px;
+    line-height: 1.15;
   }
 
   .pagos-header p {
-    max-width: 650px;
-    margin: 17px auto 0;
+    margin: 12px auto 0;
     color: rgba(255, 245, 235, 0.7);
-    font-size: 17px;
+    font-size: 15px;
     line-height: 1.6;
   }
 
-  /* Tarjeta */
-
   .pagos-card {
+    width: 100%;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 32px;
+    box-sizing: border-box;
+
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    min-height: 255px;
-    padding: 38px 30px;
-    box-sizing: border-box;
-    text-align: center;
 
     background: rgba(116, 65, 43, 0.3);
     border: 1px solid rgba(222, 183, 151, 0.32);
-    border-radius: 36px;
+    border-radius: 27px;
 
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.04),
@@ -122,140 +167,146 @@ const {
     display: flex;
     justify-content: center;
     color: #d9a66e;
-    margin-bottom: 19px;
+    margin-bottom: 12px;
   }
 
-  .pagos-card h3 {
-    margin: 0 0 13px;
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(25px, 3vw, 34px);
-    font-weight: 400;
-    line-height: 1.25;
+  .pagos-banco {
+    color: #d9a66e;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    margin-bottom: 23px;
   }
 
-  .pagos-card p {
-    max-width: 600px;
-    margin: 0;
-    color: rgba(255, 245, 235, 0.7);
+  .pagos-datos {
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+  }
+
+  .dato {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 15px 17px;
+
+    border: 1px solid rgba(222, 183, 151, 0.2);
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .dato-label {
+    color: rgba(255, 245, 235, 0.57);
+    font-size: 12px;
+  }
+
+  .dato-valor {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .dato-valor strong,
+  .dato-titular,
+  .dato-banco {
+    color: #fff8f0;
     font-size: 16px;
-    line-height: 1.7;
+    font-weight: 500;
   }
 
-  /* Aviso */
+  .tarjeta-valor strong {
+    font-size: clamp(15px, 2.2vw, 19px);
+    letter-spacing: 1.5px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .copiar-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    flex-shrink: 0;
+    padding: 9px 12px;
+
+    border: 1px solid rgba(217, 166, 110, 0.3);
+    border-radius: 10px;
+    background: rgba(217, 166, 110, 0.1);
+
+    color: #e5bb8c;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .copiar-btn:hover {
+    background: rgba(217, 166, 110, 0.2);
+  }
 
   .pagos-aviso {
-    margin: 28px 0 0;
-    color: rgba(255, 245, 235, 0.6);
+    margin: 22px 0 0;
+    color: rgba(255, 245, 235, 0.55);
     text-align: center;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 1.6;
   }
 
-  /* Laptop y pantallas medianas */
-
-  @media (min-width: 1200px) {
-    .pagos {
-      padding: 75px 30px;
-    }
-
-    .pagos-container {
-      max-width: 1000px;
-    }
-  }
-
-  /* Tablets */
-
   @media (max-width: 768px) {
     .pagos {
-      padding: 55px 22px;
-    }
-
-    .pagos-header {
-      margin-bottom: 35px;
-    }
-
-    .pagos-header h2 {
-      font-size: 42px;
-    }
-
-    .pagos-header p {
-      font-size: 15px;
-      max-width: 520px;
+      padding: 40px 20px;
     }
 
     .pagos-card {
-      min-height: 230px;
-      padding: 32px 25px;
-      border-radius: 30px;
-    }
-
-    .pagos-card h3 {
-      font-size: 29px;
+      padding: 28px 23px;
     }
   }
-
-  /* Celulares */
 
   @media (max-width: 480px) {
     .pagos {
-      padding: 45px 17px;
+      padding: 35px 17px;
     }
 
     .pagos-header {
-      margin-bottom: 30px;
-    }
-
-    .pagos-etiqueta {
-      font-size: 11px;
-      letter-spacing: 4px;
-      margin-bottom: 12px;
+      margin-bottom: 23px;
     }
 
     .pagos-header h2 {
-      font-size: clamp(32px, 9vw, 39px);
-      letter-spacing: -0.5px;
+      font-size: 34px;
     }
 
     .pagos-header p {
-      margin-top: 13px;
       font-size: 14px;
-      line-height: 1.6;
     }
 
     .pagos-card {
-      min-height: 215px;
-      padding: 30px 20px;
-      border-radius: 25px;
+      padding: 25px 17px;
+      border-radius: 23px;
     }
 
-    .pagos-icon {
-      margin-bottom: 16px;
+    .dato {
+      padding: 13px;
     }
 
-    .pagos-icon svg {
-      width: 39px;
-      height: 39px;
-    }
-
-    .pagos-card h3 {
-      font-size: 25px;
-      margin-bottom: 12px;
-    }
-
-    .pagos-card p {
+    .dato-valor strong {
       font-size: 14px;
-      line-height: 1.6;
     }
 
-    .pagos-aviso {
-      margin-top: 22px;
-      font-size: 12px;
+    .tarjeta-valor strong {
+      font-size: 14px;
+      letter-spacing: 0.5px;
+    }
+
+    .copiar-btn {
+      padding: 8px;
+      font-size: 11px;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .pagos {
-      scroll-behavior: auto;
+    .copiar-btn {
+      transition: none;
     }
   }
 </style>
